@@ -32,5 +32,17 @@ function router(location) {
 }
 
 function getURLParams(url) {
-	console.log(url);
+	let regex = /(?:\?|&)([^=&#]+)*(?:=?([^&#]*))/g;
+	let m;
+	let params = [];
+
+	while ((m = regex.exec(url)) !== null) {
+		if (m.index === regex.lastIndex) {
+			regex.lastIndex++;
+		}
+	
+		params[m[1]] = m[2];
+	}
+
+	return params;
 }
