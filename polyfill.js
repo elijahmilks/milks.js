@@ -1,9 +1,9 @@
 // XMLHttpRequest polyfill
-function httpRequest(url,callback,context) {
+function httpRequest(url, callback, context) {
 	
 	var request = null;
 
-	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+	if (window.XMLHttpRequest) { // Not crap browsers
 		request = new XMLHttpRequest();
 
 	} else if (window.ActiveXObject) { // IE
@@ -21,14 +21,14 @@ function httpRequest(url,callback,context) {
 	}
 
 	if (!request) {
-		alert('Giving up :( Cannot create an XMLHTTP instance');
+		alert('Cannot create an XMLHTTP instance');
 		return false;
 	}
 
 	function serveContent(){
 		if (request.readyState === 4) {
 			if (request.status === 200) {
-				callback.call(context,JSON.parse(httpRequest.responseText));
+				callback.call(context, JSON.parse(httpRequest.responseText));
 			} else {
 				console.log('There was a problem with the request.');
 			}

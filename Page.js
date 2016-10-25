@@ -1,6 +1,10 @@
 class Page {
 	constructor(params) {
 		this.state = {};
+
+		this.build(params);
+
+		this.content = this.render();
 	}
 
 	display() {
@@ -9,6 +13,7 @@ class Page {
 	}
 }
 
+// ercursive function to flatten arrays (including nested)
 function flatten(array) {
 	let flat = [];
 

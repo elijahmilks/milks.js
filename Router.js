@@ -1,21 +1,3 @@
-let routes = {
-	'': {
-		get: function(params) {
-			return new Home(params);
-		}
-	},
-	'work': {
-		get: function(params) {
-			return new Work(params);
-		}
-	},
-	'blog': {
-		get: function(params) {
-			return new Blog(params);
-		}
-	}
-};
-
 window.onload = function() {
 	router(window.location.hash);
 };
@@ -31,7 +13,7 @@ function router(location) {
 	// and get url parameters
 	if (/\?id=/.test(location)) {
 		// NEED TO GET MULTIPLE PARAMS
-		let m = /#(.*)\?(.*)=([0-9]*)/.exec(location);
+		let m = /#(.*)\?(.*)=([0-9A-z]*)/.exec(location);
 
 		location = m[1];
 		params[m[2]] = m[3];
