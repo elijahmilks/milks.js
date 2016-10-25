@@ -11,12 +11,11 @@ function router(location) {
 
 	// regex to remove hash from beginning of location string
 	// and get url parameters
-	if (/\?id=/.test(location)) {
-		// NEED TO GET MULTIPLE PARAMS
-		let m = /#(.*)\?(.*)=([0-9A-z]*)/.exec(location);
+	if (/\?/.test(location)) {
+		params = getURLParams(location)
 
+		let m = /#(.*)\?/.exec(location);
 		location = m[1];
-		params[m[2]] = m[3];
 	} else if (/#(.*)/.test(location)) {
 		let m = /#(.*)/.exec(location);
 
@@ -30,4 +29,8 @@ function router(location) {
 
 	// append rendered html to page
 	document.getElementById('app').innerHTML = page;
+}
+
+function getURLParams(url) {
+	console.log(url);
 }
