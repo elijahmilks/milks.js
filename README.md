@@ -5,7 +5,7 @@ milks.js is a light weight JS framework that runs entirely on the client.
 milks.js expects a strict folder hierarchy as follows:
 
 /<br>
--- helpers/<br>
+-- inc/<br>
 -- -- *.js<br>
 -- lib/<br>
 -- -- milksjs/<br>
@@ -80,8 +80,8 @@ The 'id' can be retrieved from this by calling `params['id']`. This could be use
 - returning a different page in routes 'get()' function
 - storing URL parameters in page state object for use in render() function
 
-### Helpers
-Helpers JS files (stored in project-root/helpers/*) are included in the milks.js file before your pages and routes.js files, so that code canbe abstracted out of these files, keeping them clean.
+### Includes
+Includes JS files (stored in project-root/inc/*) are included in the milks.js file before your pages and routes.js files, so that code can be abstracted out of these files, keeping them clean. This may be models, functions, classes or any other JS you don't want to clutter your page files.
 
 ## Including milks.js In Your Project
 milks.js is all ran on your client, and cannot include outside JS files directly. I've created a shell script to concat all of these files into one, so just one 'milks.js' file needs to be included.
