@@ -5,7 +5,7 @@
 
 # EXPECTED FILE STRUCTURE
 # public/
-# -- helpers/
+# -- inc/
 # -- lib/
 # -- -- milksjs/
 # -- pages/
@@ -14,14 +14,14 @@
 # FILE LOADING ORDER
 # public/lib/milksjs/polyfill.js
 # public/lib/milksjs/Page.js
-# public/helpers/*.js
+# public/inc/*.js
 # public/pages/*.js
 # public/routes.js
 # public/lib/milksjs/Router.js
 
 # COMPILES INTO > publc/milks.js
 
-STRUCTURE="EXPECTED FILE STRUCTURE:\npublic/\n-- helpers/*.js\n-- lib/\n-- -- milksjs/\n-- pages/*.js\n-- routes.js\n"
+STRUCTURE="EXPECTED FILE STRUCTURE:\npublic/\n-- inc/*.js\n-- lib/\n-- -- milksjs/\n-- pages/*.js\n-- routes.js\n"
 
 cd ../.. # cd to 'public/' directory
 
@@ -43,13 +43,13 @@ else
 fi
 
 
-helpers_count=`ls -1 ./helpers/*.js 2>/dev/null | wc -l`
+helpers_count=`ls -1 ./inc/*.js 2>/dev/null | wc -l`
 if [ "$helpers_count" -eq "0" ]; then
-	tput setaf 3; echo "WARNING: Helper JS files cannot be found at ./helpers/*.js\n"
+	tput setaf 3; echo "WARNING: Helper JS files cannot be found at ./inc/*.js\n"
 else
-	echo "/******************** \n * USER CREATED HELPERS \n ********************/ \n" >> milks.js
-	# loop through helpers
-	for file in ./helpers/*.js
+	echo "/******************** \n * USER CREATED INCLUDES \n ********************/ \n" >> milks.js
+	# loop through includes
+	for file in ./inc/*.js
 	do
 		cat $file >> milks.js
 		echo "\n\n" >> milks.js
