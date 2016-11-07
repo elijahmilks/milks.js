@@ -4,12 +4,16 @@ class Page {
 
 		this.build(params);
 
+		this.styles = this.styles();
 		this.content = this.render();
 	}
 
 	display() {
-		let string = flatten(this.content).join("");
-		return string;
+		let html = flatten(this.content).join("");
+		let styles = '<style>' + flatten(this.styles).join("") + '</style>';
+
+		let display = styles.concat(html);
+		return display;
 	}
 }
 
