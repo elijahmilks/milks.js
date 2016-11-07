@@ -4,15 +4,22 @@ class Page {
 
 		this.build(params);
 
-		this.styles = this.styles();
+		if (this.styles) {
+			this.style = this.styles();
+		}
+
 		this.content = this.render();
 	}
 
 	display() {
-		let html = flatten(this.content).join("");
-		let styles = '<style>' + flatten(this.styles).join("") + '</style>';
+		let display = flatten(this.content).join("");
 
-		let display = styles.concat(html);
+		if (this.style) {
+			let styles = '<style>' + flatten(this.style).join("") + '</style>';
+			
+			display = styles.concat(display);
+		}
+
 		return display;
 	}
 }
