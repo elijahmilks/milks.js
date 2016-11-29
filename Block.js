@@ -1,4 +1,4 @@
-class Page {
+class Block {
 	constructor(params) {
 		this.state = {};
 
@@ -32,19 +32,19 @@ class Page {
 	}
 }
 
-// recursive function to render pages in display
+// recursive function to render blocks in display
 function renderRecursive(array) {
 	let rendered = [];
 
 	for (let i = 0; i < array.length; i++) {
 		if (array[i] instanceof Array) {
 			rendered.push(renderRecursive(array[i]));
-		} else if (array[i] instanceof Page) {
+		} else if (array[i] instanceof Block) {
 			rendered.push(array[i].display());
 		} else if (typeof array[i] === 'string') {
 			rendered.push(array[i]);
 		} else {
-			throw new Error('Unexpected ' + typeof array[i] + ' in this.constructor.name::render() returned array. Expecting: String, Array or Page.');
+			throw new Error('Unexpected ' + typeof array[i] + ' in this.constructor.name::render() returned array. Expecting: String, Array or Block.');
 		}
 	}
 
@@ -66,7 +66,7 @@ function flatten(array) {
     return flat;
 }
 
-// parse error message to display more comprehensive error to developer (with Page name)
+// parse error message to display more comprehensive error to developer (with Block name)
 function errorHandle(error) {
 	let error_msg = error.message.replace('this.constructor.name', this.constructor.name);
 

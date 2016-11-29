@@ -1,9 +1,9 @@
 window.onload = function() {
-	router(window.location.hash);
+	router(window.location.href.replace(window.location.origin + window.location.pathname, ''));
 };
 
 window.onhashchange = function() {
-	router(window.location.hash);
+	router(window.location.href.replace(window.location.origin + window.location.pathname, ''));
 };
 
 function router(location) {
@@ -11,28 +11,33 @@ function router(location) {
 
 	// regex to remove hash from beginning of location string
 	// and get url parameters
-	if (/\?/.test(location)) {
-		params = getURLParams(location)
+	if (location.charAt(0) == '#') {
+		if (location.includes('?')) {
+			params = getURLParams(location)
 
-		let m = /#(.*)\?/.exec(location);
-		location = m[1];
-	} else if (/#(.*)/.test(location)) {
-		let m = /#(.*)/.exec(location);
+			let m = /#(.*)\?/.exec(location);
+			location = m[1];
+		} else {
+			let m = /#(.*)/.exec(location);
 
-		location = m[1];
+			location = m[1];
+		}
+	} else {
+		params = getURLParams(location);
+		location = '';
 	}
 
-	// get the page object
+	// get the block object
 	let route = routes[location].get(params);
-	// render the page as html
-	let page = route.display();
+	// render the block as html
+	let block = route.display();
 
-	// append rendered html to page
-	document.getElementById('app').innerHTML = page;
+	// append rendered html to block
+	document.getElementById('app').innerHTML = block;
 }
 
 function getURLParams(url) {
-	let regex = /(?:\?|&)([^=&#]+)*(?:=?([^&#]*))/g;
+	let regex = /(?:\?|&)([^=&#]+)*(?:=?([^&]*))/g;
 	let m;
 	let params = [];
 
@@ -43,6 +48,8 @@ function getURLParams(url) {
 	
 		params[m[1]] = m[2];
 	}
+
+	console.log(params);
 
 	return params;
 }
