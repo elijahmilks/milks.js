@@ -9,19 +9,19 @@ milks.js expects a strict folder hierarchy as follows:
 -- -- *.js<br>
 -- lib/<br>
 -- -- milksjs/<br>
--- pages/<br>
+-- blocks/<br>
 -- -- *.js<br>
 -- routes.js<br>
 
 What are these components?
 
-### Pages
-Pages are JS classes that represent a view on your website. 
-These Pages should extend the 'Page' class, and will be instantiated in our 'routes.js' file.
+### Blocks
+Blocks are JS classes that represent a piece of a view on your website. 
+These Blocks should extend the 'Block' class, and will be instantiated in our 'routes.js' file.
 
-#### Example Page class
+#### Example Block class
 ```
-class Home extends Page {
+class Home extends Block {
   build(params) {
     this.state.text = "Hello World!";
   }
@@ -36,9 +36,9 @@ class Home extends Page {
 
 There are a few components to understand here.
 
-First lets look at this.state. It is an object held on the page that will hold data fromone part of the lifecycle to the next. Anything that should be used in multiple functions on the class, should be stored in this.state.
+First lets look at `this.state`. It is an object stored in the block that will hold data from one part of the lifecycle to the next. Anything that should be used in multiple functions on the class, should be stored in `this.state`.
 
-Our build() function is the first function called on page instantiation. The parameter passed is a collection of URL paramters in a key-value array format.
+Our build() function is the first function called on block instantiation. The parameter passed is a collection of URL paramters in a key-value array format.
 
 The render() function needs to return an array to be displayed on the web page. This can contain nested arrays. An array was chosen so that HTML can look familiar with minimum intrusion. For example, here is a more complex render() return value:
 ```
@@ -54,7 +54,7 @@ return [
 ```
 
 ### routes.js
-The routes.js file is simple for now, and only contains an objects holding strings to represent URL value, and what page to return per that request.
+The routes.js file is simple for now, and only contains an objects holding strings to represent URL value, and what block to return per that request.
 
 #### Example routes.js file
 ```
@@ -76,19 +76,19 @@ This will return a new instance of the 'Home' class on request to 'http://websit
 A new instance of 'Blog' will be returned on URL change to 'http://website.com/index.html#blog'.
 
 The 'params' parameter comes from URL parameters like so: 'http://website.com/index.html#blog?id=12'.
-The 'id' can be retrieved from this by calling `params['id']`. This could be used for several applications:
-- returning a different page in routes 'get()' function
+The 'id' can be retrieved from this by calling `params['id']` or `params.id`. This could be used for several applications:
+- returning a different block from the routes 'get()' function
 - storing URL parameters in page state object for use in render() function
 
 ### Includes
-Includes JS files (stored in project-root/inc/*) are included in the milks.js file before your pages and routes.js files, so that code can be abstracted out of these files, keeping them clean. This may be models, functions, classes or any other JS you don't want to clutter your page files.
+Includes JS files (stored in project-root/inc/*) are included in the milks.js file before your blocks and routes.js files, so that code can be abstracted out of these files, keeping them clean. This may be models, functions, classes or any other JS you don't want to clutter your block classes.
 
 ## Including milks.js In Your Project
 milks.js is all ran on your client, and cannot include outside JS files directly. I've created a shell script to concat all of these files into one, so just one 'milks.js' file needs to be included.
 
 Whenever changes are made to any of the files explained above, the shell script needs to be ran. It can be found at 'project-root/lib/milksjs/milk.sh'. This will create a 'milks.js' file in the project root that can be included in the header of your HTML file.
 
-For milks.js to insert your pages, it needs to target an element with an id of 'app'. A simple div in the body would suffice:
+For milks.js to insert your blocks, it needs to target an element with an id of 'app'. A simple div in the body would suffice:
 ```
 <div id="app"></div>
 ```
