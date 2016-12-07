@@ -1,5 +1,5 @@
 # milks.js
-milks.js is a light weight JS framework that runs entirely on the client.
+milks.js is a light weight JS framework that runs entirely on the client. This is really just a way for me to learn about the inner workings of some frameworks I use.
 
 ## Getting Started
 milks.js expects a strict folder hierarchy as follows:
